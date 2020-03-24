@@ -5734,6 +5734,29 @@ func _newContext(runtime *_runtime) {
 		}
 	}
 	{
+		require_function := &_object{
+			runtime:     runtime,
+			class:       "Function",
+			objectClass: _classObject,
+			prototype:   runtime.global.FunctionPrototype,
+			extensible:  true,
+			property: map[string]_property{
+				"length": _property{
+					mode: 0,
+					value: Value{
+						kind:  valueNumber,
+						value: 1,
+					},
+				},
+			},
+			propertyOrder: []string{
+				"length",
+			},
+			value: _nativeFunctionObject{
+				name: "require",
+				call: builtinGlobal_require,
+			},
+		}
 		eval_function := &_object{
 			runtime:     runtime,
 			class:       "Function",
@@ -5993,6 +6016,13 @@ func _newContext(runtime *_runtime) {
 				value: Value{
 					kind:  valueObject,
 					value: eval_function,
+				},
+			},
+			"require": _property{
+				mode: 0101,
+				value: Value{
+					kind:  valueObject,
+					value: require_function,
 				},
 			},
 			"parseInt": _property{
@@ -6676,5 +6706,34 @@ func toValue_object(value *_object) Value {
 	return Value{
 		kind:  valueObject,
 		value: value,
+	}
+}
+
+func toValue_add_function(runtime *_runtime) Value {
+	return Value{
+		kind: valueObject,
+		value: &_object{
+			runtime:     runtime,
+			class:       "Function",
+			objectClass: _classObject,
+			prototype:   runtime.global.FunctionPrototype,
+			extensible:  true,
+			property: map[string]_property{
+				"length": _property{
+					mode: 0,
+					value: Value{
+						kind:  valueNumber,
+						value: 1,
+					},
+				},
+			},
+			propertyOrder: []string{
+				"length",
+			},
+			value: _nativeFunctionObject{
+				name: "require",
+				call: builtinGlobal_add,
+			},
+		},
 	}
 }

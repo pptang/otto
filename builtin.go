@@ -31,6 +31,17 @@ func builtinGlobal_eval(call FunctionCall) Value {
 	return returnValue
 }
 
+func builtinGlobal_add(call FunctionCall) Value {
+	value1 := toInt32(call.Argument(0))
+	value2 := toInt32(call.Argument(1))
+
+	return toValue_int32(value1 + value2)
+}
+
+func builtinGlobal_require(call FunctionCall) Value {
+	return toValue_add_function(call.runtime)
+}
+
 func builtinGlobal_isNaN(call FunctionCall) Value {
 	value := call.Argument(0).float64()
 	return toValue_bool(math.IsNaN(value))
