@@ -228,6 +228,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/pptang/goodtime/go/heap"
 	"github.com/robertkrimen/otto/file"
 	"github.com/robertkrimen/otto/registry"
 )
@@ -238,6 +239,7 @@ type Otto struct {
 	// See "Halting Problem" for more information.
 	Interrupt chan func()
 	runtime   *_runtime
+	heap      *heap.Heap
 }
 
 // New will allocate a new JavaScript runtime
